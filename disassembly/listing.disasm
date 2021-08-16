@@ -1,0 +1,187 @@
+Disassembly Listing for BUV_0-10V
+Generated From:
+D:/MPLABX/BUV_0-10V.X/dist/default/production/BUV_0-10V.X.production.elf
+31.07.2021 16:26:33
+
+---  D:/MPLABX/BUV_0-10V.X/main.c  ----------------------------------------------------------------------
+1:             /*
+2:              * File:   newmain.c
+3:              * Author: buzar
+4:              *
+5:              * Created on 23 июля 2021 г., 10:17
+6:              */
+7:             #include "pic10f322.h"
+8:             #include "functions.h"
+9:             #include "xc.h"
+10:            
+11:            #define LowPower RA0
+12:            #define MidPower RA1
+13:            #define HighPower RA3
+14:            
+15:            
+16:            // Период ШИМ, Задание скважности, Текущее значение счётчика периода
+17:            unsigned char PWM_period=50, PWM_high=0, PWM_counter=0;
+18:            
+19:            // Счётчик времени в количествах прерываний для измерения времени
+20:            unsigned int time_counter=0;
+21:            
+22:            // Счётчик отсутствия команд
+23:            unsigned int NoCommandCounter=0;
+24:            
+25:            void main()
+26:            {
+27:                init();
+0040  2033     CALL 0x33
+28:                
+29:                while(1)
+30:                {
+31:                    
+32:                    PWM_high=19;
+0041  3013     MOVLW 0x13
+0042  00FF     MOVWF 0x7F
+0043  087F     MOVF 0x7F, W
+0044  00C8     MOVWF PWM_high
+0045  2841     GOTO 0x41
+0046  280C     GOTO 0xC
+33:                    
+34:                    
+35:                    /*
+36:                    if (LowPower == 0) {
+37:                        PWM_high = 12;
+38:                        NoCommandCounter = 0;
+39:                    }
+40:            
+41:                    if (MidPower == 0) {
+42:                        PWM_high = 19;
+43:                        NoCommandCounter = 0;
+44:                    }
+45:            
+46:                    if (HighPower == 0) {
+47:                        PWM_high = 25;
+48:                        NoCommandCounter = 0;
+49:                    }
+50:            
+51:                    
+52:                    if ((LowPower==1)&&(MidPower==1)&&(HighPower==1))
+53:                    {
+54:                        NoCommandCounter++;
+55:                        if (NoCommandCounter>=10000)
+56:                        {
+57:                            PWM_high = 0;
+58:                            NoCommandCounter=10000;
+59:                        }
+60:                    }
+61:                     * 
+62:                     * 
+63:                     * */
+64:                }
+65:                
+66:            }
+67:            
+68:            // Обработчик прерывания
+69:            // Название tmr2Int придумывается самостоятельно
+70:            void __interrupt() tmr2Int()
+0004  00FE     MOVWF 0x7E
+71:            {
+72:                PWM_counter++;
+0016  3001     MOVLW 0x1
+0017  00FF     MOVWF 0x7F
+0018  087F     MOVF 0x7F, W
+0019  07C4     ADDWF PWM_counter, F
+73:                
+74:                if(PWM_counter>=PWM_period)
+001A  0849     MOVF PWM_period, W
+001B  0244     SUBWF PWM_counter, W
+001C  1C03     BTFSS STATUS, 0x0
+001D  281F     GOTO 0x1F
+001E  2820     GOTO 0x20
+001F  2822     GOTO 0x22
+75:                {
+76:                    RA2=1;
+0020  1505     BSF PORTA, 0x2
+77:                    PWM_counter=0;
+0021  01C4     CLRF PWM_counter
+78:                }
+79:                
+80:                if(PWM_counter>=PWM_high)
+0022  0848     MOVF PWM_high, W
+0023  0244     SUBWF PWM_counter, W
+0024  1C03     BTFSS STATUS, 0x0
+0025  2827     GOTO 0x27
+0026  2828     GOTO 0x28
+0027  2829     GOTO 0x29
+81:                {
+82:                    RA2=0;
+0028  1105     BCF PORTA, 0x2
+83:                }
+84:                
+85:                TMR2IF=0;   // сброс флага прерывания
+0029  108C     BCF PIR1, 0x1
+86:                return;
+87:            }
+002A  0847     MOVF 0x47, W
+002B  00FF     MOVWF 0x7F
+002C  0846     MOVF 0x46, W
+002D  008A     MOVWF PCLATH
+002E  0E45     SWAPF __pcstackBANK0, W
+002F  0083     MOVWF STATUS
+0030  0EFE     SWAPF 0x7E, F
+0031  0E7E     SWAPF 0x7E, W
+0032  0009     RETFIE
+---  D:/MPLABX/BUV_0-10V.X/functions.c  -----------------------------------------------------------------
+1:             #include "pic10f322.h"
+2:             #include "functions.h"
+3:             #include "xc.h"
+4:             
+5:             
+6:             //--------------------------------------------//
+7:             // Инициализация периферии
+8:             // Порты
+9:             // Тактовый генератор
+10:            // Модуль ШИМ
+11:            // Модуль измерения температуры
+12:            
+13:            void init()
+14:            {
+15:                // Тактовый генератор
+16:                OSCCON=0b01100000;
+0033  3060     MOVLW 0x60
+0034  0090     MOVWF OSCCON
+17:                
+18:                // Порты
+19:                PORTA=0;
+0035  0185     CLRF PORTA
+20:                TRISA=0b00001011;
+0036  300B     MOVLW 0xB
+0037  0086     MOVWF TRISA
+21:                ANSELA=0;
+0038  0188     CLRF ANSELA
+22:                WPUA=0;
+0039  0189     CLRF WPUA
+23:                
+24:                // Таймер 2 для генерации прерываний
+25:                PR2=50;
+003A  3032     MOVLW 0x32
+003B  0092     MOVWF PR2
+26:                T2CON=0b00000100;
+003C  3004     MOVLW 0x4
+003D  0093     MOVWF T2CON
+27:                
+28:                // Прерывание
+29:                TMR2IE=1;
+003E  148D     BSF PIE1, 0x1
+30:                
+31:                return;
+32:            }
+003F  0008     RETURN
+33:            
+---  C:/Users/buzar/AppData/Local/Temp/s3vk.s  ----------------------------------------------------------
+000D  2047     CALL 0x47
+000E  00C9     MOVWF PWM_period
+000F  01C0     CLRF __pbssBANK0
+0010  01C1     CLRF 0x41
+0011  01C2     CLRF 0x42
+0012  01C3     CLRF 0x43
+0013  01C4     CLRF PWM_counter
+0014  0183     CLRF STATUS
+0015  2840     GOTO 0x40
