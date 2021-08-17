@@ -2351,7 +2351,7 @@ void main()
 
         if(PWM_high>PWM_set)
         {
-            _delay((unsigned long)((2500)*(8000000/4000.0)));
+            _delay((unsigned long)((250)*(8000000/4000.0)));
             PWM_high--;
         }
 
