@@ -1,7 +1,7 @@
 
 
 Microchip MPLAB XC8 Assembler V2.32 build 20210201212658 
-                                                                                               Tue Aug 17 10:22:52 2021
+                                                                                               Tue Aug 17 10:45:21 2021
 
 Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1 
      1                           	processor	10F322
@@ -365,13 +365,13 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
    350  0025                     u120:
    351  0025                     l681:
    352                           
-   353                           ;main.c: 50:         {;main.c: 51:             _delay((unsigned long)((300)*(8000000/400
+   353                           ;main.c: 50:         {;main.c: 51:             _delay((unsigned long)((250)*(8000000/400
       +                          0.0)));
-   354  0025  3004               	movlw	4
+   354  0025  3003               	movlw	3
    355  0026  00CC               	movwf	??_main+2
-   356  0027  300C               	movlw	12
+   356  0027  308A               	movlw	138
    357  0028  00CB               	movwf	??_main+1
-   358  0029  3033               	movlw	51
+   358  0029  3055               	movlw	85
    359  002A  00CA               	movwf	??_main
    360  002B                     u247:
    361  002B  0BCA               	decfsz	??_main,f
@@ -401,13 +401,13 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
    385  003C                     u130:
    386  003C                     l687:
    387                           
-   388                           ;main.c: 56:         {;main.c: 57:             _delay((unsigned long)((300)*(8000000/400
-      +                          0.0)));
-   389  003C  3004               	movlw	4
+   388                           ;main.c: 56:         {;main.c: 57:             _delay((unsigned long)((2500)*(8000000/40
+      +                          00.0)));
+   389  003C  301A               	movlw	26
    390  003D  00CC               	movwf	??_main+2
-   391  003E  300C               	movlw	12
+   391  003E  305E               	movlw	94
    392  003F  00CB               	movwf	??_main+1
-   393  0040  3033               	movlw	51
+   393  0040  306E               	movlw	110
    394  0041  00CA               	movwf	??_main
    395  0042                     u257:
    396  0042  0BCA               	decfsz	??_main,f
@@ -416,7 +416,7 @@ Microchip MPLAB XC8 C Compiler v2.32 (Free license) build 20210201212658 Og1
    399  0045  2842               	goto	u257
    400  0046  0BCC               	decfsz	??_main+2,f
    401  0047  2842               	goto	u257
-   402  0048  2849               	nop2
+   402  0048  0000               	nop
    403  0049                     l689:
    404                           
    405                           ;main.c: 58:             PWM_high--;
@@ -837,7 +837,7 @@ STACK                0      0       0       2        0.0%
 
 
 Microchip Technology PIC Macro Assembler V2.32 build 20210201212658 
-Symbol Table                                                                                   Tue Aug 17 10:22:52 2021
+Symbol Table                                                                                   Tue Aug 17 10:45:21 2021
 
                      l21 00B3                      l701 005D                      l711 006D  
                     l703 005F                      l713 0071                      l705 0063  

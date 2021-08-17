@@ -54,7 +54,7 @@ void main()
         
         if(PWM_high>PWM_set)
         {
-            __delay_ms(2500);
+            __delay_ms(25);
             PWM_high--;
         }        
         
