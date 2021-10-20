@@ -2325,7 +2325,7 @@ extern __bank0 __bit __timeout;
 
 
 
-unsigned char PWM_period=25, PWM_high=0, PWM_counter=0,PWM_set=0;
+unsigned char PWM_set=0;
 
 
 unsigned int time_counter=0;
@@ -2336,37 +2336,37 @@ unsigned int NoCommandCounter=0;
 void main()
 {
     init();
-    GIE = 1;
+
 
     while(1)
     {
 # 47 "main.c"
         _delay((unsigned long)((500)*(8000000/4000000.0)));
 
-        if(PWM_high<PWM_set)
+        if(PWM2DCH<PWM_set)
         {
-            _delay((unsigned long)((250)*(8000000/4000.0)));
-            PWM_high++;
+            _delay((unsigned long)((50)*(8000000/4000.0)));
+            PWM2DCH++;
         }
 
-        if(PWM_high>PWM_set)
+        if(PWM2DCH>PWM_set)
         {
-            _delay((unsigned long)((250)*(8000000/4000.0)));
-            PWM_high--;
+            _delay((unsigned long)((50)*(8000000/4000.0)));
+            PWM2DCH--;
         }
 
         if (RA3 == 0) {
-            PWM_set = 8;
+            PWM_set = 50;
             NoCommandCounter = 0;
         }
 
         if (RA1 == 0) {
-            PWM_set = 12;
+            PWM_set = 75;
             NoCommandCounter = 0;
         }
 
         if (RA0 == 0) {
-            PWM_set = 18;
+            PWM_set =90;
             NoCommandCounter = 0;
         }
 
@@ -2376,32 +2376,11 @@ void main()
             NoCommandCounter++;
             if (NoCommandCounter>=1000)
             {
-                PWM_high = 0;
+                PWM2DCH = 0;
                 NoCommandCounter=1000;
             }
         }
 
     }
 
-}
-
-
-
-void __attribute__((picinterrupt(("")))) tmr2Int()
-{
-    PWM_counter++;
-
-    if(PWM_counter>=PWM_period)
-    {
-        RA2=1;
-        PWM_counter=0;
-    }
-
-    if(PWM_counter>=PWM_high)
-    {
-        RA2=0;
-    }
-
-    TMR2IF=0;
-    return;
 }

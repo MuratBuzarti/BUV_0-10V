@@ -16,8 +16,8 @@
 #define HighPower RA0
 
 
-// Период ШИМ, Задание скважности, Текущее значение счётчика периода, Задание скважности
-unsigned char PWM_period=25, PWM_high=0, PWM_counter=0,PWM_set=0;
+// Задание скважности
+unsigned char PWM_set=0;
 
 // Счётчик времени в количествах прерываний для измерения времени
 unsigned int time_counter=0;
@@ -28,7 +28,7 @@ unsigned int NoCommandCounter=0;
 void main()
 {
     init();
-    GIE = 1; // Разрешение глобльных прерываний
+//    GIE = 1; // Разрешение глобльных прерываний
     
     while(1)
     {
@@ -46,30 +46,30 @@ void main()
 
         __delay_us(500);
         
-        if(PWM_high<PWM_set)
+        if(PWM2DCH<PWM_set)
         {
-            __delay_ms(200);
-            PWM_high++;
+            __delay_ms(50);
+            PWM2DCH++;
         }
         
-        if(PWM_high>PWM_set)
+        if(PWM2DCH>PWM_set)
         {
-            __delay_ms(200);
-            PWM_high--;
+            __delay_ms(50);
+            PWM2DCH--;
         }        
         
         if (LowPower == 0) {
-            PWM_set = 8;
+            PWM_set = 50;
             NoCommandCounter = 0;
         }
 
         if (MidPower == 0) {
-            PWM_set = 12;
+            PWM_set = 75;
             NoCommandCounter = 0;
         }
 
         if (HighPower == 0) {
-            PWM_set = 18;
+            PWM_set =90;
             NoCommandCounter = 0;
         }
 
@@ -79,7 +79,7 @@ void main()
             NoCommandCounter++;
             if (NoCommandCounter>=1000)
             {
-                PWM_high = 0;
+                PWM2DCH = 0;
                 NoCommandCounter=1000;
             }
         }
@@ -90,7 +90,7 @@ void main()
 
 // Обработчик прерывания
 // Название tmr2Int придумывается самостоятельно
-void __interrupt() tmr2Int()
+/*void __interrupt() tmr2Int()
 {
     PWM_counter++;
     
@@ -108,3 +108,4 @@ void __interrupt() tmr2Int()
     TMR2IF=0;   // сброс флага прерывания
     return;
 }
+  */

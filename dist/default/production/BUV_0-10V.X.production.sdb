@@ -11,8 +11,6 @@
 [v _init init `(v  1 e 1 0 ]
 "28 D:\MPLABX\BUV_0-10V.X\main.c
 [v _main main `(v  1 e 1 0 ]
-"93
-[v _tmr2Int tmr2Int `II(v  1 e 1 0 ]
 "158 C:/Program Files/Microchip/MPLABX/v5.50/packs/Microchip/PIC10-12Fxxx_DFP/1.4.56/xc8\pic\include\proc\pic10f322.h
 [v _PORTA PORTA `VEuc  1 e 1 @5 ]
 "196
@@ -27,26 +25,19 @@
 [v _PR2 PR2 `VEuc  1 e 1 @18 ]
 "664
 [v _T2CON T2CON `VEuc  1 e 1 @19 ]
-"3467
-[v _GIE GIE `VEb  1 e 0 @95 ]
+"953
+[v _PWM2DCH PWM2DCH `VEuc  1 e 1 @24 ]
 "3899
 [v _PEIE PEIE `VEb  1 e 0 @94 ]
 "4004
 [v _RA0 RA0 `VEb  1 e 0 @40 ]
 "4007
 [v _RA1 RA1 `VEb  1 e 0 @41 ]
-"4010
-[v _RA2 RA2 `VEb  1 e 0 @42 ]
 "4013
 [v _RA3 RA3 `VEb  1 e 0 @43 ]
 "4049
 [v _TMR2IE TMR2IE `VEb  1 e 0 @105 ]
-"4052
-[v _TMR2IF TMR2IF `VEb  1 e 0 @97 ]
 "20 D:\MPLABX\BUV_0-10V.X\main.c
-[v _PWM_period PWM_period `uc  1 e 1 0 ]
-[v _PWM_high PWM_high `uc  1 e 1 0 ]
-[v _PWM_counter PWM_counter `uc  1 e 1 0 ]
 [v _PWM_set PWM_set `uc  1 e 1 0 ]
 "26
 [v _NoCommandCounter NoCommandCounter `ui  1 e 2 0 ]
@@ -59,9 +50,4 @@
 [v _init init `(v  1 e 1 0 ]
 {
 "33
-} 0
-"93 D:\MPLABX\BUV_0-10V.X\main.c
-[v _tmr2Int tmr2Int `II(v  1 e 1 0 ]
-{
-"110
 } 0
